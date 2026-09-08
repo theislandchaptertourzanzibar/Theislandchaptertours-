@@ -88,15 +88,6 @@
             font-size: 0.9em;
         }
 
-        .auto-detect-note {
-            background: #e3f2fd;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 15px;
-            color: #1976d2;
-            font-size: 0.85em;
-        }
-
         .continue-btn {
             margin-top: 25px;
             padding: 12px 40px;
@@ -125,7 +116,7 @@
 <body>
     <div class="language-section">
         <h1>🌍 Welcome to The Island Chapter Tours</h1>
-        <p id="selectLangText">Select your preferred language</p>
+        <p>Select your preferred language</p>
         
         <div class="language-grid">
             <button class="language-btn active" data-lang="en" onclick="selectLanguage('en')">
@@ -159,95 +150,26 @@
             <p>Explore beautiful tours around the stunning island of Zanzibar</p>
         </div>
 
-        <div class="auto-detect-note" id="autoDetectNote">
-            📍 Browser language automatically detected
-        </div>
-
         <button class="continue-btn" onclick="continueToDashboard()">Continue</button>
     </div>
 
     <script>
         // Language data with translations
         const languages = {
-            en: { 
-                name: 'English', 
-                welcome: 'You have selected: English', 
-                description: 'Explore beautiful tours around the stunning island of Zanzibar',
-                selectText: 'Select your preferred language',
-                continueText: 'Continue',
-                autoDetect: '📍 Browser language automatically detected'
-            },
-            es: { 
-                name: 'Español', 
-                welcome: 'Ha seleccionado: Español', 
-                description: 'Explore hermosos tours alrededor de la hermosa isla de Zanzíbar',
-                selectText: 'Seleccione su idioma preferido',
-                continueText: 'Continuar',
-                autoDetect: '📍 Idioma del navegador detectado automáticamente'
-            },
-            fr: { 
-                name: 'Français', 
-                welcome: 'Vous avez sélectionné : Français', 
-                description: 'Découvrez de magnifiques tours autour de la magnifique île de Zanzibar',
-                selectText: 'Sélectionnez votre langue préférée',
-                continueText: 'Continuer',
-                autoDetect: '📍 Langue du navigateur détectée automatiquement'
-            },
-            de: { 
-                name: 'Deutsch', 
-                welcome: 'Sie haben Deutsch ausgewählt', 
-                description: 'Erkunden Sie schöne Touren rund um die wunderschöne Insel Sansibar',
-                selectText: 'Wählen Sie Ihre bevorzugte Sprache',
-                continueText: 'Fortfahren',
-                autoDetect: '📍 Browsersprache automatisch erkannt'
-            },
-            it: { 
-                name: 'Italiano', 
-                welcome: 'Hai selezionato: Italiano', 
-                description: 'Esplora i bellissimi tour intorno alla splendida isola di Zanzibar',
-                selectText: 'Seleziona la tua lingua preferita',
-                continueText: 'Continua',
-                autoDetect: '📍 Lingua del browser rilevata automaticamente'
-            },
-            pt: { 
-                name: 'Português', 
-                welcome: 'Você selecionou: Português', 
-                description: 'Explore hermosos passeios ao redor da belíssima ilha de Zanzibar',
-                selectText: 'Selecione seu idioma preferido',
-                continueText: 'Continuar',
-                autoDetect: '📍 Idioma do navegador detectado automaticamente'
-            },
-            sw: { 
-                name: 'Swahili', 
-                welcome: 'Umechagua: Kiswahili', 
-                description: 'Chunguza ziara nzuri karibu na kisiwa kizuri cha Unguja',
-                selectText: 'Chagua lugha yako inayopendelea',
-                continueText: 'Endelea',
-                autoDetect: '📍 Lugha ya kivinjari iligundulika kiotomatiki'
-            },
-            ar: { 
-                name: 'العربية', 
-                welcome: 'لقد اخترت: العربية', 
-                description: 'استكشف الجولات الجميلة حول جزيرة زنجبار الخلابة',
-                selectText: 'اختر لغتك المفضلة',
-                continueText: 'متابعة',
-                autoDetect: '📍 تم اكتشاف لغة المتصفح تلقائياً'
-            }
+            en: { name: 'English', welcome: 'You have selected: English', description: 'Explore beautiful tours around the stunning island of Zanzibar' },
+            es: { name: 'Español', welcome: 'Ha seleccionado: Español', description: 'Explore hermosos tours alrededor de la hermosa isla de Zanzíbar' },
+            fr: { name: 'Français', welcome: 'Vous avez sélectionné : Français', description: 'Découvrez de magnifiques tours autour de la magnifique île de Zanzibar' },
+            de: { name: 'Deutsch', welcome: 'Sie haben Deutsch ausgewählt', description: 'Erkunden Sie schöne Touren rund um die wunderschöne Insel Sansibar' },
+            it: { name: 'Italiano', welcome: 'Hai selezionato: Italiano', description: 'Esplora i bellissimi tour intorno alla splendida isola di Zanzibar' },
+            pt: { name: 'Português', welcome: 'Você selecionou: Português', description: 'Explore hermosos passeios ao redor da belíssima ilha de Zanzibar' },
+            sw: { name: 'Swahili', welcome: 'Umechagua: Kiswahili', description: 'Chunguza ziara nzuri karibu na kisiwa kizuri cha Unguja' },
+            ar: { name: 'العربية', welcome: 'لقد اخترت: العربية', description: 'استكشف الجولات الجميلة حول جزيرة زنجبار الخلابة' }
         };
 
         let selectedLanguage = 'en';
-        let isAutoDetected = false;
 
-        // Get browser language
-        function getBrowserLanguage() {
-            const browserLang = navigator.language || navigator.userLanguage;
-            const langCode = browserLang.split('-')[0].toLowerCase();
-            return languages.hasOwnProperty(langCode) ? langCode : 'en';
-        }
-
-        function selectLanguage(lang, isAuto = false) {
+        function selectLanguage(lang) {
             selectedLanguage = lang;
-            isAutoDetected = isAuto;
             
             // Update active button
             document.querySelectorAll('.language-btn').forEach(btn => {
@@ -261,46 +183,22 @@
                 <p><strong>${langData.welcome}</strong></p>
                 <p>${langData.description}</p>
             `;
-
-            // Update UI text
-            document.getElementById('selectLangText').textContent = langData.selectText;
-            document.querySelector('.continue-btn').textContent = langData.continueText;
-
-            // Show/hide auto-detect note
-            const autoDetectNote = document.getElementById('autoDetectNote');
-            autoDetectNote.textContent = langData.autoDetect;
-            autoDetectNote.style.display = isAuto ? 'block' : 'none';
             
             // Save preference
             localStorage.setItem('preferredLanguage', lang);
-            localStorage.setItem('languageSelectionMethod', isAuto ? 'auto-detected' : 'manual');
         }
 
         function continueToDashboard() {
             // Store language preference and redirect to main site
             localStorage.setItem('preferredLanguage', selectedLanguage);
-            localStorage.setItem('languageSelectionMethod', isAutoDetected ? 'auto-detected' : 'manual');
-            
-            const langName = languages[selectedLanguage].name;
-            console.log(`Language set to: ${langName}`);
-            
-            // Redirect to main page (update path as needed)
-            window.location.href = 'main.html'; // Change to your actual dashboard/main page
-            // Alternative: window.location.href = 'dashboard.html';
+            alert(`Language set to: ${languages[selectedLanguage].name}\nRedirecting to main page...`);
+            // window.location.href = 'dashboard.html'; // Uncomment when dashboard page is ready
         }
 
-        // Load saved language preference or auto-detect on page load
+        // Load saved language preference on page load
         window.addEventListener('load', () => {
-            const saved = localStorage.getItem('preferredLanguage');
-            
-            if (saved) {
-                // User has selected a language before
-                selectLanguage(saved, false);
-            } else {
-                // First time visitor - auto-detect browser language
-                const browserLang = getBrowserLanguage();
-                selectLanguage(browserLang, true);
-            }
+            const saved = localStorage.getItem('preferredLanguage') || 'en';
+            selectLanguage(saved);
         });
     </script>
 </body>
