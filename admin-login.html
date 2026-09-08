@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - The Island Chapter Tours</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .admin-login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-section h1 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .logo-section p {
+            color: #7f8c8d;
+            font-size: 0.95em;
+        }
+
+        .admin-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2c3e50;
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle .toggle-btn {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            background: none;
+            border: none;
+            color: #2c3e50;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid #721c24;
+            font-size: 0.9em;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            border-left: 4px solid #155724;
+            font-size: 0.9em;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(44, 62, 80, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #bdc3c7;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ecf0f1;
+        }
+
+        .divider span {
+            padding: 0 10px;
+            font-size: 0.85em;
+        }
+
+        .demo-section {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        .demo-section h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .demo-credentials {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .demo-credentials strong {
+            color: #2c3e50;
+        }
+
+        .demo-note {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: #34495e;
+            text-decoration: underline;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2c3e50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="logo-section">
+            <h1>⚙️ Admin Panel</h1>
+            <p>The Island Chapter Tours</p>
+            <div class="admin-badge">Administrator Access Only</div>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <form id="adminLoginForm" onsubmit="submitAdminLogin(event)">
+            <div class="form-group">
+                <label for="adminUsername">Username</label>
+                <input 
+                    type="text" 
+                    id="adminUsername" 
+                    name="username" 
+                    placeholder="admin" 
+                    required
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="adminPassword">Password</label>
+                <div class="password-toggle">
+                    <input 
+                        type="password" 
+                        id="adminPassword" 
+                        name="password" 
+                        placeholder="••••••••" 
+                        required
+                        autocomplete="current-password"
+                    >
+                    <button type="button" class="toggle-btn" onclick="toggleAdminPassword()">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+                <span id="btnText">Login to Admin Panel</span>
+                <div class="loading-spinner" id="loginSpinner"></div>
+            </button>
+        </form>
+
+        <div class="divider">
+            <span>Demo Access</span>
+        </div>
+
+        <div class="demo-section">
+            <h4>🔐 Demo Credentials</h4>
+            <div class="demo-credentials">
+                <strong>Username:</strong> admin
+            </div>
+            <div class="demo-credentials">
+                <strong>Password:</strong> admin123
+            </div>
+            <p class="demo-note">
+                ℹ️ Click any demo credential field to copy to clipboard
+            </p>
+        </div>
+
+        <div class="back-link">
+            <a href="Index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Default admin credentials
+        const DEFAULT_ADMIN = {
+            username: 'admin',
+            password: 'admin123'
+        };
+
+        // Toggle password visibility
+        function toggleAdminPassword() {
+            const field = document.getElementById('adminPassword');
+            field.type = field.type === 'password' ? 'text' : 'password';
+        }
+
+        // Show error message
+        function showAdminError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            setTimeout(() => {
+                errorDiv.classList.remove('show');
+            }, 5000);
+        }
+
+        // Show success message
+        function showAdminSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.classList.add('show');
+        }
+
+        // Submit admin login
+        function submitAdminLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value;
+
+            // Validation
+            if (!username || !password) {
+                showAdminError('Please fill in all fields');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loginSpinner').style.display = 'block';
+            document.getElementById('btnText').textContent = 'Logging in...';
+            document.getElementById('loginBtn').disabled = true;
+
+            // Simulate API call delay
+            setTimeout(() => {
+                // Check credentials
+                if (username === DEFAULT_ADMIN.username && password === DEFAULT_ADMIN.password) {
+                    // Login successful
+                    showAdminSuccess('Login successful! Redirecting...');
+
+                    // Save admin session
+                    const adminData = {
+                        username: username,
+                        loginTime: new Date().toISOString()
+                    };
+
+                    sessionStorage.setItem('adminUser', JSON.stringify(adminData));
+
+                    // Redirect to admin panel
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 1500);
+                } else {
+                    showAdminError('Invalid username or password');
+                    document.getElementById('loginSpinner').style.display = 'none';
+                    document.getElementById('btnText').textContent = 'Login to Admin Panel';
+                    document.getElementById('loginBtn').disabled = false;
+                }
+            }, 1500);
+        }
+
+        // Copy demo credentials to clipboard
+        document.querySelectorAll('.demo-credentials').forEach(element => {
+            element.addEventListener('click', function() {
+                const text = this.textContent.replace('Username:', '').replace('Password:', '').trim();
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = this.textContent;
+                    this.textContent = '✓ Copied!';
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 2000);
+                });
+            });
+        });
+
+        // Check if already logged in as admin
+        window.addEventListener('load', () => {
+            const adminUser = sessionStorage.getItem('adminUser');
+            if (adminUser) {
+                window.location.href = 'admin.html';
+            }
+        });
+    </script>
+</body>
+</html>
