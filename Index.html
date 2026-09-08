@@ -1,1 +1,205 @@
-255000000000
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Island Chapter Tours - Zanzibar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Language Section */
+        .language-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .language-section h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .language-section p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .language-btn {
+            padding: 15px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .language-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .language-flag {
+            font-size: 1.5em;
+            margin-right: 5px;
+        }
+
+        .language-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .continue-btn {
+            margin-top: 25px;
+            padding: 12px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-section">
+        <h1>🌍 Welcome to The Island Chapter Tours</h1>
+        <p>Select your preferred language</p>
+        
+        <div class="language-grid">
+            <button class="language-btn active" data-lang="en" onclick="selectLanguage('en')">
+                <span class="language-flag">🇬🇧</span> English
+            </button>
+            <button class="language-btn" data-lang="es" onclick="selectLanguage('es')">
+                <span class="language-flag">🇪🇸</span> Español
+            </button>
+            <button class="language-btn" data-lang="fr" onclick="selectLanguage('fr')">
+                <span class="language-flag">🇫🇷</span> Français
+            </button>
+            <button class="language-btn" data-lang="de" onclick="selectLanguage('de')">
+                <span class="language-flag">🇩🇪</span> Deutsch
+            </button>
+            <button class="language-btn" data-lang="it" onclick="selectLanguage('it')">
+                <span class="language-flag">🇮🇹</span> Italiano
+            </button>
+            <button class="language-btn" data-lang="pt" onclick="selectLanguage('pt')">
+                <span class="language-flag">🇵🇹</span> Português
+            </button>
+            <button class="language-btn" data-lang="sw" onclick="selectLanguage('sw')">
+                <span class="language-flag">🇹🇿</span> Swahili
+            </button>
+            <button class="language-btn" data-lang="ar" onclick="selectLanguage('ar')">
+                <span class="language-flag">🇸🇦</span> العربية
+            </button>
+        </div>
+
+        <div class="language-info" id="languageInfo">
+            <p>You have selected: <strong>English</strong></p>
+            <p>Explore beautiful tours around the stunning island of Zanzibar</p>
+        </div>
+
+        <button class="continue-btn" onclick="continueToDashboard()">Continue</button>
+    </div>
+
+    <script>
+        // Language data with translations
+        const languages = {
+            en: { name: 'English', welcome: 'You have selected: English', description: 'Explore beautiful tours around the stunning island of Zanzibar' },
+            es: { name: 'Español', welcome: 'Ha seleccionado: Español', description: 'Explore hermosos tours alrededor de la hermosa isla de Zanzíbar' },
+            fr: { name: 'Français', welcome: 'Vous avez sélectionné : Français', description: 'Découvrez de magnifiques tours autour de la magnifique île de Zanzibar' },
+            de: { name: 'Deutsch', welcome: 'Sie haben Deutsch ausgewählt', description: 'Erkunden Sie schöne Touren rund um die wunderschöne Insel Sansibar' },
+            it: { name: 'Italiano', welcome: 'Hai selezionato: Italiano', description: 'Esplora i bellissimi tour intorno alla splendida isola di Zanzibar' },
+            pt: { name: 'Português', welcome: 'Você selecionou: Português', description: 'Explore hermosos passeios ao redor da belíssima ilha de Zanzibar' },
+            sw: { name: 'Swahili', welcome: 'Umechagua: Kiswahili', description: 'Chunguza ziara nzuri karibu na kisiwa kizuri cha Unguja' },
+            ar: { name: 'العربية', welcome: 'لقد اخترت: العربية', description: 'استكشف الجولات الجميلة حول جزيرة زنجبار الخلابة' }
+        };
+
+        let selectedLanguage = 'en';
+
+        function selectLanguage(lang) {
+            selectedLanguage = lang;
+            
+            // Update active button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+            
+            // Update language info
+            const langData = languages[lang];
+            document.getElementById('languageInfo').innerHTML = `
+                <p><strong>${langData.welcome}</strong></p>
+                <p>${langData.description}</p>
+            `;
+            
+            // Save preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        function continueToDashboard() {
+            // Store language preference and redirect to main site
+            localStorage.setItem('preferredLanguage', selectedLanguage);
+            alert(`Language set to: ${languages[selectedLanguage].name}\nRedirecting to main page...`);
+            // window.location.href = 'dashboard.html'; // Uncomment when dashboard page is ready
+        }
+
+        // Load saved language preference on page load
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('preferredLanguage') || 'en';
+            selectLanguage(saved);
+        });
+    </script>
+</body>
+</html>
